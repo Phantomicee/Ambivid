@@ -1,0 +1,29 @@
+name: Build Ambient Short + Long
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "assets/video_raw/**"
+      - "assets/audio_raw/**"
+      - "scripts/build_ambient.py"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install FFmpeg
+        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+
+      - name: Run build script
+        run: python scripts/build_ambient.py
+
+      - name: Upload outputs as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ambient_outputs
+          path: output/
