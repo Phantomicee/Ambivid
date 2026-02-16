@@ -4,9 +4,9 @@ on:
   workflow_dispatch:
   push:
     paths:
-      - "assets/video_raw/**"
+      - "assets/Video_raw/**"
       - "assets/audio_raw/**"
-      - "scripts/build_ambient.py"
+      - "Scripts/build_ambient.py"
 
 jobs:
   build:
@@ -19,11 +19,11 @@ jobs:
       - name: Install FFmpeg
         run: sudo apt-get update && sudo apt-get install -y ffmpeg
 
-      - name: Run build script
-        run: python scripts/build_ambient.py
+      - name: Run ambient build
+        run: python Scripts/build_ambient.py
 
-      - name: Upload outputs as artifact
+      - name: Upload outputs
         uses: actions/upload-artifact@v4
         with:
           name: ambient_outputs
-          path: output/
+          path: Output/
